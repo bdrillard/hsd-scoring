@@ -12,6 +12,7 @@
             {:name :score :datatype :int}]})
 
 (defn main []
+  (.log js/console "Hello, world!")
   (when-let [container (sel1 "#update-team")]
     (d/append! container (node (f/render-form update-score)))
     (fd/handle-submit
