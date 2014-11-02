@@ -15,6 +15,10 @@
             {:name :competition :type :select :options ["--" "Launch" "Ramp" "Presentation"]}
             {:name :score :datatype :int}]})
 
+(def remove-team
+  {:fields [{:name :h2 :type :heading :text "Remove a team"}
+            {:name :team_name}]})
+
 (def forms
   [create-team
    update-team])
