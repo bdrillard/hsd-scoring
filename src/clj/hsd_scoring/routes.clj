@@ -1,7 +1,7 @@
 (ns hsd-scoring.routes
   (:use korma.db
         korma.core)
-  (:require [ring.util.response :as res]))
+  (:require [ring.util.response :refer [resource-response response]]))
 
 (defdb mys (mysql
                   {:host "localhost"
@@ -15,4 +15,5 @@
 (defentity team_scores)
 
 (defn teams-summary []
-  {:body (select team_scores)})
+  {:body (select team_scores
+                 (order :team_name :asc))})

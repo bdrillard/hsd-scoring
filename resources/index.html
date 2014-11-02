@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.3.0/bootstrap-table.min.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.3.0/bootstrap-table.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid center-block">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">KU HSD</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid center-block">
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">Level 2a</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4">Level 2b</div>
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="panel panel-primary">
+                    <div class="panel-title">
+                        <h2>Scores</h1>
+                    </div>
+                    <table data-toggle="table" data-url="http://localhost:3000/teams" data-cache="false">
+                        <thead>
+                            <tr>
+                                <th data-field="team_name" data-sortable="true">Team Name</th>
+                                <th data-field="weight" data-cell-style="cellStyle" data-sortable="true">Vehicle Weight</th>
+                                <th data-field="launch_score" data-cell-style="cellStyle" data-sortable="true">Launch Score</th>
+                                <th data-field="ramp_score" data-cell-style="cellStyle" data-sortable="true">Ramp Score</th>
+                                <th data-field="presentation_score" data-cell-style="cellStyle" data-sortable="true">Presentation Score</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <script>
+                        function cellStyle(value, row, index) {
+                            var classes = ["success", "danger"];
+
+                            if (value === null) {
+                                return {classes: 'danger'};
+                            } else {
+                                return {classes: 'success'};
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

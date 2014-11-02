@@ -4,15 +4,30 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
+                 [org.clojure/clojurescript "0.0-2138"]
                  [ring "1.3.0"]
                  [ring/ring-json "0.3.1"]
                  [compojure "1.1.8"]
                  [korma "0.3.2"]
                  [org.clojure/java.jdbc "0.3.3"]
                  [mysql/mysql-connector-java "5.1.6"]
+                 [formative "0.8.8"]
+                 [prismatic/dommy "0.1.1"]
                  [cheshire "5.3.1"]]
-  :plugins [[lein-ring "0.8.11"]]
+  :plugins [[lein-ring "0.8.11"]
+            [lein-cljsbuild "1.0.1"]]
+  :hooks [leiningin.cljsbuild]
+  :source-paths ["src/clj"]
   :ring {:handler hsd-scoring.handler/app}
   :profiles {:dev {:depencies [[javax.servlet/servlet-api "2.5"]
                                [ring-mock "0.1.5"]]}}
+  :cljsbuild {:builds [{:source-paths ["src/cljs"]
+                       :compiler {:output-to "resources/js/forms.js"
+                                  :optimizations :advanced
+                                  :pretty-print false}
+                       :#_{:output-dir "resources/js"
+                           :output-to "resources/js/forms.js"
+                           :source-map "resources/js/forms.js.map"
+                           :optimizations :none
+                           :pretty-print false}}]}
   :main hsd-scoring.handler)
