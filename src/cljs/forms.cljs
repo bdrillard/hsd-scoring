@@ -2,7 +2,7 @@
   (:require [formative.core :as f]
             [formative.dom :as fd]
             [dommy.core :as d]
-            [ajax.core :refer [POST]])
+            [ajax.core :as ajax])
   (:require-macros [dommy.macros :refer [sel1 node]]))
 
 (def create-team
@@ -29,13 +29,12 @@
 ;  (js/alert (pr-str params)))
 
 (defn post [params]
-  (POST "http://localhost:3000/teams"
+  (ajax/POST "/teams/create"
         {:params {:team_name (:team_name params)
                   :weight (:weight params)
                   :competition (:competition params)
                   :score (:score params)}
-         :handler handler
-         :error-handler error-handler}))
+         :handler handler}))
 
 (defn main []
   (doseq [elem forms]
