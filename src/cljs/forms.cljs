@@ -37,9 +37,11 @@
     {:form delete-team :id "delete-team" :func delete}])
 
 (defn handler [response]
+  (.log js/console "success")
   (.log js/console (:body response)))
 
 (defn error [response]
+  (.log js/console "error")
   (.log js/console (:error (:body response))))
 
 (defn create [params]
