@@ -46,14 +46,14 @@
   (ajax/POST "http://localhost:3000/teams/create"
         {:params {:team_name (:team_name params)}
          :handler handler
-         :error-handler handler}))
+         :error-handler error}))
 
 (defn update-w [params]
   (ajax/POST "http://localhost:3000/teams/update"
         {:params {:team_name (:team_name params)
                   :weight (:weight params)}
          :handler handler
-         :error-handler handler}))
+         :error-handler error}))
 
 (defn update-s [params]
   (ajax/POST "http://localhost:3000/teams/update"
@@ -61,13 +61,13 @@
                   :competition (:competition params)
                   :score (:score params)}
          :handler handler
-         :error-handler handler}))
+         :error-handler error}))
 
 (defn delete [params]
   (ajax/POST "http://localhost:3000/teams/delete"
         {:params {:team_name (:team_name params)}
          :handler handler
-         :error-handler handler}))
+         :error-handler error}))
 
 (defn main []
   (doseq [elem forms]
