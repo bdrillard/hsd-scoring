@@ -28,8 +28,11 @@
 ;(defn post [params]
 ;  (js/alert (pr-str params)))
 
+(defn handler [response]
+  (.log js/console (str response)))
+
 (defn post [params]
-  (ajax/POST "/teams/create"
+  (ajax/POST "http://localhost:3000/teams/create"
         {:params {:team_name (:team_name params)
                   :weight (:weight params)
                   :competition (:competition params)
