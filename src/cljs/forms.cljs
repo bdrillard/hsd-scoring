@@ -28,8 +28,8 @@
 ;(defn post [params]
 ;  (js/alert (pr-str params)))
 
-(defn handler [response]
-  (.log js/console (str response)))
+(defn handler [_]
+  (.reload js/location))
 
 (defn post [params]
   (ajax/POST "http://localhost:3000/teams/create"
