@@ -1,7 +1,8 @@
 (ns hsd-scoring.forms
   (:require [formative.core :as f]
             [formative.dom :as fd]
-            [dommy.core :as d])
+            [dommy.core :as d]
+            [ajax.core :refer [POST]])
   (:require-macros [dommy.macros :refer [sel1 node]]))
 
 (def create-team
@@ -24,8 +25,17 @@
     {:form update-team :id "update-team"}
     {:form delete-team :id "delete-team"}])
 
+;(defn post [params]
+;  (js/alert (pr-str params)))
+
 (defn post [params]
-  (js/alert (pr-str params)))
+  (POST "http://localhost:3000/teams"
+        {:params {:team_name (:team_name params)
+                  :weight (:weight params)
+                  :competition (:competition params)
+                  :score (:score params)}
+         :handler handler
+         :error-handler error-handler}))
 
 (defn main []
   (doseq [elem forms]

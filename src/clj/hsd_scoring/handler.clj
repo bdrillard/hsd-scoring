@@ -11,7 +11,8 @@
 
 (defroutes app-routes
   (GET "/" [] (resource-response "index.html"))
-  (GET "/teams" [] (rs/teams-summary)))
+  (GET "/teams" [] (rs/teams-summary))
+  (GET "/teams/:id" [id] (rs/create-team)))
 
 (def app
   (-> (handler/api app-routes)

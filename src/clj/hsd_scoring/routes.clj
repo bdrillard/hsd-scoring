@@ -17,3 +17,8 @@
 (defn teams-summary []
   {:body (select team_scores
                  (order :team_name :asc))})
+
+(defn create-team [params]
+  (do
+    (insert team_scores (values {:team_name params}))
+    (response {:body "Successfully created team"})))
