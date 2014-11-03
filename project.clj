@@ -14,7 +14,7 @@
                  [mysql/mysql-connector-java "5.1.6"]
                  [formative "0.8.8"]
                  [prismatic/dommy "0.1.1"]
-                 [cljs-ajax "0.1.5"]]
+                 [cljs-ajax "0.1.0"]]
   :plugins [[lein-ring "0.8.11"]
             [lein-cljsbuild "1.0.0"]]
   :source-paths ["src/clj"]

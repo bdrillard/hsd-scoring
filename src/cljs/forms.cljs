@@ -40,7 +40,6 @@
   (.log js/console (str response)))
 
 (defn create [params]
-  (.log js/console params)
   (ajax/POST "http://localhost:3000/teams/create"
         {:params {:team_name (:team_name params)}
          :handler handler
