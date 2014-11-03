@@ -32,7 +32,9 @@
     (do
       (insert team_scores 
               (values {:team_name team-name}))
-      (response {:body "Successfully created team"})))))
+      (response {:status 200
+                 :headers {}
+                 :body "Successfully created team"})))))
 
 (defn get-score-type [name]
   (cond
