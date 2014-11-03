@@ -25,8 +25,8 @@
     {:form update-team :id "update-team" :func update}
     {:form delete-team :id "delete-team" :func delete}])
 
-(defn update [params]
-  (js/alert (pr-str params)))
+;(defn update [params]
+; (js/alert (pr-str params)))
 
 (defn handler [response]
   (.log js/console (str response)))
