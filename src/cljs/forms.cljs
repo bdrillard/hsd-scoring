@@ -37,10 +37,12 @@
   (.log js/console (str response)))
 
 (defn create [params]
-  (ajax/POST "http://localhost:3000/teams/create"
-        {:params {:team_name (:team_name params)}
-         :handler handler
-         :error-handler handler}))
+  (if (not= nil (:team_name params))
+    (ajax/POST "http://localhost:3000/teams/create"
+          {:params {:team_name (:team_name params)}
+           :handler handler
+           :error-handler handler})
+    nil))
 
 (defn update-weight [params]
   (ajax/POST "http://localhost:3000/teams/update"

@@ -47,10 +47,11 @@
         (if (contains? params :weight)
           (update team_scores
                   (set-fields {:weight (:weight params)})
-                  (where {:team_name team-name}))
+                  (where (= :team_name team-name)))
           (update team_scores
                   (set-fields {(get-score-type (:competition params)) (:score params)})
-                  (where {:team_name team-name}))))
+                  (where (= :team_name team-name))))
+        (response {:body "Successfully updated team"}))
       (response {:status 403
                  :body {:error (str "The team named '" team-name "' did not exist")}}))))
 
