@@ -34,6 +34,12 @@
               (values {:team_name team-name}))
       (response {:body "Successfully created team"})))))
 
+(defn get-score-type [name]
+  (cond
+    (= name "Launch") :launch_score
+    (= name "Ramp") :ramp_score
+    (= name "Presentation") :presentation_score))
+
 (defn update-team [params]
   (let [team-name (:team_name params)
         weight (:weight params)
@@ -44,7 +50,7 @@
         (insert team_scores
                 (values {:team_name team-name
                          :weight weight
-                         competition score})))
+                         (get-score-type competition) score})))
       (response {:status 403
                  :body {:error (str "The team named '" team-name "' did not exist")}}))))
 
