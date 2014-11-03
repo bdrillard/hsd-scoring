@@ -13,7 +13,7 @@
   {:fields [{:name :h2 :type :heading :text "Update team data"}
             {:name :team_name}
             {:name :weight :datatype :float}
-            {:name :competition :type :select :options ["--" "Launch" "Ramp" "Presentation"]}
+            {:name :competition :type :select :options ["Launch" "Ramp" "Presentation"]}
             {:name :score :datatype :int}]})
 
 (def delete-team
@@ -25,8 +25,8 @@
     {:form update-team :id "update-team" :func update}
     {:form delete-team :id "delete-team" :func delete}])
 
-;(defn post [params]
-;  (js/alert (pr-str params)))
+(defn update [params]
+  (js/alert (pr-str params)))
 
 (defn handler [response]
   (.log js/console (str response)))
@@ -36,6 +36,15 @@
         {:params {:team_name (:team_name params)}
          :handler handler
          :error-handler handler}))
+
+;(defn update [params]
+;  (ajax/POST "http://localhost:3000/teams/update"
+;        {:params {:team_name (:team_name params)
+;                  :weight (:weight params)
+;                  :competition (:competition params)
+;                  :score (:score params)}
+;         :handler handler
+;         :error-handler handler}))
 
 (defn delete [params]
   (ajax/POST "http://localhost:3000/teams/delete"

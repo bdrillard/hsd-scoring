@@ -34,11 +34,26 @@
               (values {:team_name team-name}))
       (response {:body "Successfully created team"})))))
 
+(defn update-team [params]
+  (let [team-name (:team_name params)
+        weight (:weight params)
+        competition (:competition params)
+        score (:score params)]
+    (if (exists? team_scores :team_name team-name)
+      (do
+        (insert team_scores
+                (values {:team_name team-name
+                         :weight weight
+                         competition score})))
+      (response {:status 403
+                 :body {:error (str "The team named '" team-name "' did not exist")}}))))
+
+
 (defn delete-team [params]
   (let [team-name (:team_name params)]
     (if (exists? team_scores :team_name team-name)
       (do
-        (delete team_scores (having (= :team_name team-name)))
+        (delete team_scores (where (= :team_name team-name)))
         (response {:body "Deletion successful"}))
     (response {:status 403
                :body {:error (str "The team named '" team-name "' did not exist")}}))))  
