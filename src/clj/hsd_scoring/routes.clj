@@ -47,10 +47,14 @@
         score (:score params)]
     (if (exists? team_scores :team_name team-name)
       (do
-        (insert team_scores
-                (values {:team_name team-name
-                         :weight weight
-                         (get-score-type competition) score})))
+        (print (str score " " weight))
+        (if (= nil score)
+          (update team_scores
+                  (set-fields {:weight weight})
+                  (where {:team_name team-name}))
+          (update team_scores
+                  (set-fields {(get-score-type competition) score})
+                  (where {:team_name team-name}))))
       (response {:status 403
                  :body {:error (str "The team named '" team-name "' did not exist")}}))))
 
