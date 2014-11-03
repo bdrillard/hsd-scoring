@@ -21,30 +21,35 @@
             {:name :team_name}]})
 
 (def forms
-   [{:form create-team :id "create-team"}
-    {:form update-team :id "update-team"}
-    {:form delete-team :id "delete-team"}])
+   [{:form create-team :id "create-team" :func create}
+    {:form update-team :id "update-team" :func update}
+    {:form delete-team :id "delete-team" :func delete}])
 
 ;(defn post [params]
 ;  (js/alert (pr-str params)))
 
-(defn handler [_]
-  (.reload js/location))
+(defn handler [response]
+  (.log js/console (str response)))
 
-(defn post [params]
+(defn create [params]
   (ajax/POST "http://localhost:3000/teams/create"
-        {:params {:team_name (:team_name params)
-                  :weight (:weight params)
-                  :competition (:competition params)
-                  :score (:score params)}
-         :handler handler}))
+        {:params {:team_name (:team_name params)}
+         :handler handler
+         :error-handler handler}))
+
+(defn delete [params]
+  (ajax/POST "http://localhost:3000/teams/delete"
+        {:params {:team_name (:team_name params)}
+         :handler handler
+         :error-handler handler}))
 
 (defn main []
   (doseq [elem forms]
     (when-let [container (sel1 (str "#" (:id elem)))]
       (d/append! container (node (f/render-form (:form elem))))
       (fd/handle-submit
-        (:form elem) container
-        post)))) 
+        (:form elem) 
+        container
+        (:func elem))))) 
 
 (main)

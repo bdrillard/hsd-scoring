@@ -12,7 +12,8 @@
 (defroutes app-routes
   (GET "/" [] (resource-response "index.html"))
   (GET "/teams" [] (rs/teams-summary))
-  (POST "/teams/create" {params :params} (rs/create-team params)))
+  (POST "/teams/create" {params :params} (rs/create-team params))
+  (POST "/teams/delete" {params :params} (rs/delete-team params)))
 
 (def app
   (-> (handler/api app-routes)
