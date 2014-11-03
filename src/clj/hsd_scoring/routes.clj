@@ -1,7 +1,7 @@
 (ns hsd-scoring.routes
   (:use korma.db
         korma.core)
-  (:require [ring.util.response :refer [resource-response response]]))
+  (:require [ring.util.response :refer [response]]))
 
 (defdb mys (mysql
                   {:host "localhost"
