@@ -28,13 +28,12 @@
   (let [team-name (:team_name params)]
     (if (exists? team_scores :team_name team-name)
       (response {:status 403
-                 :body {:error (str "The team named '" team-name "' already exists")}})
-    (do
-      (insert team_scores 
-              (values {:team_name team-name}))
-      (response {:status 200
-                 :headers {}
-                 :body "Successfully created team"})))))
+                  :body {:error (str "The team named '" team-name "' already exists")}})
+      (do
+        (response {:status 200
+                   :body "Success"})
+        (insert team_scores 
+          (values params))))))
 
 (defn get-score-type [name]
   (cond
