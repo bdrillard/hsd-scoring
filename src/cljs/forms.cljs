@@ -9,7 +9,7 @@
   {:fields [{:name :team_name}]
    :validations [[:required [:team_name]]
                  [:matches #"[\w+|_?]*-\d+" 
-                           [:team_name] 
+                           :team_name 
                            "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
    :renderer :bootstrap3-stacked})
 
@@ -24,7 +24,7 @@
             {:name :competition :type :select :options ["Launch" "Ramp" "Presentation"]}
             {:name :score :datatype :int}]
    :validations [[:required [:team_name :competition :score]]
-                 [:within 0 200 [:score]]]
+                 [:within 0 200 :score]]
    :renderer :bootstrap3-stacked})
 
 (def delete-team
