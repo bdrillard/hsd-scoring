@@ -8,9 +8,7 @@
 (def create-team
   {:fields [{:name :team_name}]
    :validations [[:required [:team_name]]
-                 [:matches #"[\w+|_?]*-\d+" 
-                           :team_name 
-                           "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
+                 [:matches #"[\w+|_?]*-\d+" :team_name "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
    :renderer :bootstrap3-stacked})
 
 (def update-weight
