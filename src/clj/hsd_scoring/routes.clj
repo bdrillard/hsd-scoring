@@ -32,7 +32,8 @@
     (do
       (insert team_scores 
               (values {:team_name team-name}))
-      (response {:body "Successfully created team"})))))
+      (response {:status 200
+                 :body "Successfully created team"})))))
 
 (defn get-score-type [name]
   (cond
@@ -51,7 +52,8 @@
           (update team_scores
                   (set-fields {(get-score-type (:competition params)) (:score params)})
                   (where (= :team_name team-name))))
-        (response {:body "Successfully updated team"}))
+        (response {:status 200
+                   :body "Successfully updated team"}))
       (response {:status 403
                  :body {:error (str "The team named '" team-name "' did not exist")}}))))
 
@@ -60,6 +62,7 @@
     (if (exists? team_scores :team_name team-name)
       (do
         (delete team_scores (where (= :team_name team-name)))
-        (response {:body "Deletion successful"}))
+        (response {:status 200
+                   :body "Deletion successful"}))
     (response {:status 403
                :body {:error (str "The team named '" team-name "' did not exist")}}))))  
