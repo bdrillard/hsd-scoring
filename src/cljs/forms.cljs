@@ -26,8 +26,8 @@
 
 (def forms
    [{:form create-team :id "create-team" :func create}
-    {:form update-weight :id "update-weight" :func update-weight}
-    {:form update-score :id "update-score" :func update-score}
+    {:form update-weight :id "update-weight" :func update-w}
+    {:form update-score :id "update-score" :func update-s}
     {:form delete-team :id "delete-team" :func delete}])
 
 ;(defn update [params]
@@ -37,21 +37,19 @@
   (.log js/console (str response)))
 
 (defn create [params]
-  (if (not= nil (:team_name params))
-    (ajax/POST "http://localhost:3000/teams/create"
-          {:params {:team_name (:team_name params)}
-           :handler handler
-           :error-handler handler})
-    nil))
+  (ajax/POST "http://localhost:3000/teams/create"
+        {:params {:team_name (:team_name params)}
+         :handler handler
+         :error-handler handler}))
 
-(defn update-weight [params]
+(defn update-w [params]
   (ajax/POST "http://localhost:3000/teams/update"
         {:params {:team_name (:team_name params)
                   :weight (:weight params)}
          :handler handler
          :error-handler handler}))
 
-(defn update-score [params]
+(defn update-s [params]
   (ajax/POST "http://localhost:3000/team/update"
         {:params {:team_name (:team_name params)
                   :competition (:competition params)

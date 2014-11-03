@@ -55,7 +55,6 @@
       (response {:status 403
                  :body {:error (str "The team named '" team-name "' did not exist")}}))))
 
-
 (defn delete-team [params]
   (let [team-name (:team_name params)]
     (if (exists? team_scores :team_name team-name)
