@@ -36,13 +36,11 @@
     {:form update-score :id "update-score" :func update-s}
     {:form delete-team :id "delete-team" :func delete}])
 
-(defn handler [response]
-  (.log js/console "success")
-  (.log js/console (:body response)))
+(defn handler [_]
+  (.log js/console "success"))
 
-(defn error [response]
-  (.log js/console "error")
-  (.log js/console (:error (:body response))))
+(defn error [_]
+  (.log js/console "error"))
 
 (defn create [params]
   (ajax/POST "http://localhost:3000/teams/create"
