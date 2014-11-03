@@ -37,7 +37,7 @@
     {:form delete-team :id "delete-team" :func delete}])
 
 (defn handler [response]
-  (if (= (:status response) 403)
+  (if (= (:status response) 200)
     (.log js/console (str "Error: " response))
     (.log js/console (str response))))
 
