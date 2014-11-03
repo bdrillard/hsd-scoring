@@ -27,7 +27,7 @@
 (def forms
    [{:form create-team :id "create-team" :func create}
     {:form update-weight :id "update-weight" :func update-weight}
-    {:form update-score :id "update-score" :func update}
+    {:form update-score :id "update-score" :func update-score}
     {:form delete-team :id "delete-team" :func delete}])
 
 ;(defn update [params]

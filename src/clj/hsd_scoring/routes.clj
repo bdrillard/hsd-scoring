@@ -41,19 +41,15 @@
     (= name "Presentation") :presentation_score))
 
 (defn update-team [params]
-  (let [team-name (:team_name params)
-        weight (:weight params)
-        competition (:competition params)
-        score (:score params)]
+  (let [team-name (:team_name params)]
     (if (exists? team_scores :team_name team-name)
       (do
-        (print (str score " " weight))
-        (if (= nil score)
+        (if (contains? params :weight)
           (update team_scores
-                  (set-fields {:weight weight})
+                  (set-fields {:weight (:weight params)})
                   (where {:team_name team-name}))
           (update team_scores
-                  (set-fields {(get-score-type competition) score})
+                  (set-fields {(get-score-type (:competition params)) (:score params)})
                   (where {:team_name team-name}))))
       (response {:status 403
                  :body {:error (str "The team named '" team-name "' did not exist")}}))))
