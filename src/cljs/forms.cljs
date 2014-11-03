@@ -50,7 +50,7 @@
          :error-handler handler}))
 
 (defn update-s [params]
-  (ajax/POST "http://localhost:3000/team/update"
+  (ajax/POST "http://localhost:3000/teams/update"
         {:params {:team_name (:team_name params)
                   :competition (:competition params)
                   :score (:score params)}
