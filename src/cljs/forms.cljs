@@ -15,14 +15,14 @@
             {:name :competition :type :select :options ["--" "Launch" "Ramp" "Presentation"]}
             {:name :score :datatype :int}]})
 
-(def remove-team
+(def delete-team
   {:fields [{:name :h2 :type :heading :text "Remove a team"}
             {:name :team_name}]})
 
 (def forms
    [{:form create-team :id "create-team"}
     {:form update-team :id "update-team"}
-    {:form remove-team :id "remove-team"}])
+    {:form delete-team :id "delete-team"}])
 
 (defn main []
   (doseq [elem forms]
