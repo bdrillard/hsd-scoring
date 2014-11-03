@@ -7,21 +7,27 @@
 
 (def create-team
   {:fields [{:name :team_name}]
+   :validations [[:required [:team_name]]
+                 [:matches #"[\w+|_?]*-\d+"]] ; matches any number of words separated by underscores, with a trailing hyphen separated number
    :renderer :bootstrap3-stacked})
 
 (def update-weight
   {:fields [{:name :team_name}
             {:name :weight :datatype :float}]
+   :validations [[:required [:team_name :weight]]]
    :renderer :bootstrap3-stacked})
 
 (def update-score
   {:fields [{:name :team_name}
             {:name :competition :type :select :options ["Launch" "Ramp" "Presentation"]}
             {:name :score :datatype :int}]
+   :validations [[:required [:team_name :competition :score]]
+                 [:within 0 200 :score]]
    :renderer :bootstrap3-stacked})
 
 (def delete-team
   {:fields [{:name :team_name}]
+   :validations [[:required [:team_name]]]
    :renderer :bootstrap3-stacked})
 
 (def forms
