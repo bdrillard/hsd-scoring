@@ -20,16 +20,16 @@
             {:name :team_name}]})
 
 (def forms
-  [create-team
-   update-team
-   remove-team])
+   [{:form create-team :id "create-team"}
+    {:form update-team :id "update-team"}
+    {:form remove-team :id "remove-team"}])
 
 (defn main []
-  (doseq [form forms]
-    (when-let [container (sel1 (str "#" form))]
-      (d/append! container (node (f/render-form form)))
+  (doseq [elem forms]
+    (when-let [container (sel1 (str "#" (:id elem)))]
+      (d/append! container (node (f/render-form (:form elem))))
       (fd/handle-submit
-        form container
+        (:form elem) container
         (fn [params]
           (js/alert (pr-str params)))))))
 
