@@ -25,11 +25,11 @@
    remove-team])
 
 (defn main []
-  (when-let [container (sel1 "#forms")]
-    (doseq [form forms]
+  (doseq [form forms]
+    (when-let [container (sel1 (str "#" form))]
       (d/append! container (node (f/render-form form)))
       (fd/handle-submit
-                        form container
+        form container
         (fn [params]
           (js/alert (pr-str params)))))))
 
