@@ -6,19 +6,23 @@
   (:require-macros [dommy.macros :refer [sel1 node]]))
 
 (def create-team
-  {:fields [{:name :team_name}]})
+  {:fields [{:name :team_name}]
+   :renderer :bootstrap-horizontal})
 
 (def update-weight
   {:fields [{:name :team_name}
-            {:name :weight :datatype :float}]})
+            {:name :weight :datatype :float}]
+   :renderer :bootstrap-horizontal})
 
 (def update-score
   {:fields [{:name :team_name}
             {:name :competition :type :select :options ["Launch" "Ramp" "Presentation"]}
-            {:name :score :datatype :int}]})
+            {:name :score :datatype :int}]
+   :renderer :bootstrap-horizontal})
 
 (def delete-team
-  {:fields [{:name :team_name}]})
+  {:fields [{:name :team_name}]
+   :renderer :bootstrap-horizontal})
 
 (def forms
    [{:form create-team :id "create-team" :func create}
