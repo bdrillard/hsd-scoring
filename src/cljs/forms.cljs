@@ -8,9 +8,7 @@
 (def create-team
   {:fields [{:name :team_name}]
    :validations [[:required [:team_name]]
-                 [:matches #"[\w+|_?]*-\d+" 
-                           [:team_name] 
-                           "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
+                 [:matches #"[\w+|_?]*-\d+" :team_name "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
    :renderer :bootstrap3-stacked})
 
 (def update-weight
@@ -24,7 +22,7 @@
             {:name :competition :type :select :options ["Launch" "Ramp" "Presentation"]}
             {:name :score :datatype :int}]
    :validations [[:required [:team_name :competition :score]]
-                 [:within 0 200 [:score]]]
+                 [:within 0 200 :score]]
    :renderer :bootstrap3-stacked})
 
 (def delete-team
@@ -37,9 +35,6 @@
     {:form update-weight :id "update-weight" :func update-w}
     {:form update-score :id "update-score" :func update-s}
     {:form delete-team :id "delete-team" :func delete}])
-
-;(defn update [params]
-; (js/alert (pr-str params)))
 
 (defn handler [response]
   (.log js/console (str response)))
