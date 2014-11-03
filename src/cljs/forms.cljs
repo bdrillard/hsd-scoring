@@ -36,10 +36,10 @@
     {:form update-score :id "update-score" :func update-s}
     {:form delete-team :id "delete-team" :func delete}])
 
-(defn handler [_]
+(defn handler []
   (.log js/console "success"))
 
-(defn error [_]
+(defn error []
   (.log js/console "error"))
 
 (defn create [params]
