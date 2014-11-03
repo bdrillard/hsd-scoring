@@ -24,13 +24,15 @@
     {:form update-team :id "update-team"}
     {:form delete-team :id "delete-team"}])
 
+(defn post [params]
+  (js/alert (pr-str params)))
+
 (defn main []
   (doseq [elem forms]
     (when-let [container (sel1 (str "#" (:id elem)))]
       (d/append! container (node (f/render-form (:form elem))))
       (fd/handle-submit
         (:form elem) container
-        (fn [params]
-          (js/alert (pr-str params)))))))
+        post)))) 
 
 (main)
