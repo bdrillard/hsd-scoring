@@ -36,15 +36,16 @@
     {:form update-score :id "update-score" :func update-s}
     {:form delete-team :id "delete-team" :func delete}])
 
-(defn handler []
-  (.log js/console "success"))
+(defn handler [response]
+  (.log js/console (str response)))
 
-(defn error []
-  (.log js/console "error"))
+(defn error [{:keys [status status-text]}]
+  (.log js/console (str "something bad happened: " status " " status-text)))
 
 (defn create [params]
   (ajax/POST "http://localhost:3000/teams/create"
         {:params {:team_name (:team_name params)}
+         :format :json
          :handler handler
          :error-handler error}))
 
@@ -52,6 +53,7 @@
   (ajax/POST "http://localhost:3000/teams/update"
         {:params {:team_name (:team_name params)
                   :weight (:weight params)}
+         :format :json
          :handler handler
          :error-handler error}))
 
@@ -60,12 +62,14 @@
         {:params {:team_name (:team_name params)
                   :competition (:competition params)
                   :score (:score params)}
+         :format :json
          :handler handler
          :error-handler error}))
 
 (defn delete [params]
   (ajax/POST "http://localhost:3000/teams/delete"
         {:params {:team_name (:team_name params)}
+         :format :json
          :handler handler
          :error-handler error}))
 
