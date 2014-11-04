@@ -68,7 +68,8 @@
                   :weight (:weight params)}
          :format :json
          :handler handler
-         :error-handler error}))
+         :error-handler error
+         :keywordize-keys true}))
 
 (defn update-s [params]
   (ajax/POST "http://localhost:3000/teams/update"
@@ -77,14 +78,16 @@
                   :score (:score params)}
          :format :json
          :handler handler
-         :error-handler error}))
+         :error-handler error
+         :keywordize-keys true}))
 
 (defn delete [params]
   (ajax/POST "http://localhost:3000/teams/delete"
         {:params {:team_name (:team_name params)}
          :format :json
          :handler handler
-         :error-handler error}))
+         :error-handler error 
+         :keywordize-keys true}))
 
 (defn main []
   (doseq [elem forms]
