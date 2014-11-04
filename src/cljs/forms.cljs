@@ -47,7 +47,8 @@
         {:params {:team_name (:team_name params)}
          :format :json
          :handler handler
-         :error-handler error}))
+         :error-handler error
+         :keywords? true}))
 
 (defn update-w [params]
   (ajax/POST "http://localhost:3000/teams/update"
