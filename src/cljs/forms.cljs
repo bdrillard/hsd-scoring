@@ -48,7 +48,7 @@
          :format :json
          :handler handler
          :error-handler error
-         :keywords? true}))
+         :keywordize-keys true}))
 
 (defn update-w [params]
   (ajax/POST "http://localhost:3000/teams/update"
