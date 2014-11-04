@@ -45,7 +45,9 @@
   (when-let [container (sel1 "#response-pane")]
     (if (= (:status response) 200)
       (d/append! container (node [:p (str response)]))
-      (d/append! container (node [:div.alert.alert-danger.fade.in {:role "alert"} (str (:error (:body response)))])))))
+      (d/append! container (node [:div.alert.alert-danger.fade.in {:role "alert"} 
+                                  [:a.close {:data-dismiss "alert" :href "#"} "&times;"]
+                                  [:p (str (:error (:body response)))]])))))
 
 (defn error [{:keys [status status-text]}]
   (.log js/console (str "something bad happened: " status " " status-text)))
