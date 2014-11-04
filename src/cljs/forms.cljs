@@ -44,7 +44,9 @@
 (defn handler [response]
   (when-let [container (sel1 "#response-pane")]
     (if (= (:status response) 200)
-      (d/append! container (node [:p (str response)]))
+      (d/append! container (node [:div.alert.alert-succes.fade.in {:role "alert"} 
+                                  [:a.close {:data-dismiss "alert" :href "#"} "&times;"]
+                                  [:p (str (:body response))]]))
       (d/append! container (node [:div.alert.alert-danger.fade.in {:role "alert"} 
                                   [:a.close {:data-dismiss "alert" :href "#"} "&times;"]
                                   [:p (str (:error (:body response)))]])))))
