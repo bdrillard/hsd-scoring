@@ -37,6 +37,12 @@
     {:form delete-team :id "delete-team" :func delete}])
 
 (defn handler [response]
+  (when-let [container (sel1 "#response-pane")]
+    (if (= (:status response) 200)
+      (d/append! container (node [:p (str response)]))
+      (d/append! container (node [:p (str response)])))))
+
+(defn handler [response]
   (if (= (:status response) 403)
     (.log js/console (str "Error " response))
     (.log js/console (str "Success " response))))
