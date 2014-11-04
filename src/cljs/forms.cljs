@@ -2,6 +2,7 @@
   (:require [formative.core :as f]
             [formative.dom :as fd]
             [dommy.core :as d]
+            [dommy.template :as t]
             [ajax.core :as ajax])
   (:require-macros [dommy.macros :refer [sel1 node]]))
 
@@ -36,11 +37,15 @@
     {:form update-score :id "update-score" :func update-s}
     {:form delete-team :id "delete-team" :func delete}])
 
+(defn warning-template [txt]
+  (t/node
+    [:div.alert.alert-danger {:role "alert"} txt]))
+
 (defn handler [response]
   (when-let [container (sel1 "#response-pane")]
     (if (= (:status response) 200)
       (d/append! container (node [:p (str response)]))
-      (d/append! container (node [:p (str response)])))))
+      (d/append! container (node (warning-template (:body response)))))))
 
 (defn error [{:keys [status status-text]}]
   (.log js/console (str "something bad happened: " status " " status-text)))
