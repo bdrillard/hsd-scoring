@@ -24,16 +24,20 @@
   {:body (select team_scores
                  (order :team_name :asc))})
 
+;; not my proudest moment
+(defn results []
+  {:body (exec-raw ["SELECT *, launch_score + ramp_score AS total FROM team_scores WHERE disqualified = 1 ORDER BY total DESC, weight ASC"] :results)}) 
+
 (defn create-team [params]
   (let [team-name (:team_name params)]
     (if (exists? team_scores :team_name team-name)
       (response {:status 403
-                 :body {:error (str "The team named '" team-name "' already exists")}})
+                 :body {:error (str "The team '" team-name "' already exists")}})
     (do
       (insert team_scores 
               (values {:team_name team-name}))
       (response {:status 200
-                 :body "Successfully created team"})))))
+                 :body (str "Successfully created team " team-name)})))))
 
 (defn get-score-type [name]
   (cond
@@ -44,18 +48,21 @@
 (defn update-team [params]
   (let [team-name (:team_name params)]
     (if (exists? team_scores :team_name team-name)
-      (do
         (if (contains? params :weight)
-          (update team_scores
+          (do 
+            (update team_scores
                   (set-fields {:weight (:weight params)})
                   (where (= :team_name team-name)))
-          (update team_scores
+            (response {:status 200
+                       :body (str "Successfully updated " team-name "'s weight to " (:weight params))}))
+          (do
+            (update team_scores
                   (set-fields {(get-score-type (:competition params)) (:score params)})
-                  (where (= :team_name team-name))))
-        (response {:status 200
-                   :body "Successfully updated team"}))
+                  (where (= :team_name team-name)))
+            (response {:status 200
+                       :body (str "Successfully updated " team-name "'s " (:competition params) " score to " (:score params))})))
       (response {:status 403
-                 :body {:error (str "The team named '" team-name "' did not exist")}}))))
+                 :body {:error (str "The team '" team-name "' did not exist")}}))))
 
 (defn delete-team [params]
   (let [team-name (:team_name params)]
@@ -63,6 +70,6 @@
       (do
         (delete team_scores (where (= :team_name team-name)))
         (response {:status 200
-                   :body "Deletion successful"}))
+                   :body (str "Deleted " team-name)}))
     (response {:status 403
                :body {:error (str "The team named '" team-name "' did not exist")}}))))  
