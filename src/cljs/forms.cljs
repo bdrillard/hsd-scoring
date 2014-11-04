@@ -42,11 +42,6 @@
       (d/append! container (node [:p (str response)]))
       (d/append! container (node [:p (str response)])))))
 
-;(defn handler [response]
-;  (if (= (:status response) 403)
-;    (.log js/console (str "Error " response))
-;    (.log js/console (str "Success " response))))
-
 (defn error [{:keys [status status-text]}]
   (.log js/console (str "something bad happened: " status " " status-text)))
 
