@@ -37,18 +37,14 @@
     {:form update-score :id "update-score" :func update-s}
     {:form delete-team :id "delete-team" :func delete}])
 
-(defn warning-template [txt]
-  (t/node
-    [:div.alert.alert-danger {:role "alert"} txt]))
-
 (defn handler [response]
   (when-let [container (sel1 "#response-pane")]
     (if (= (:status response) 200)
-      (d/append! container (node [:div.alert.alert-succes.fade.in {:role "alert"} 
-                                  [:a.close {:data-dismiss "alert" :href "#"} "&times;"]
+      (d/append! container (node [:div.alert.alert-success.fade.in {:role "alert"} 
+                                  [:a.close {:data-dismiss "alert" :href "#"} "\u00D7"]
                                   [:p (str (:body response))]]))
       (d/append! container (node [:div.alert.alert-danger.fade.in {:role "alert"} 
-                                  [:a.close {:data-dismiss "alert" :href "#"} "&times;"]
+                                  [:a.close {:data-dismiss "alert" :href "#"} "\u00D7"]
                                   [:p (str (:error (:body response)))]])))))
 
 (defn error [{:keys [status status-text]}]
