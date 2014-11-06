@@ -7,20 +7,23 @@
             [ring.util.response :refer [resource-response]]
             [ring.middleware.params :as wrap-params]
             [ring.middleware.json :as middleware]
+            [ring.middleware.cors :as cors]
             [hsd-scoring.routes :as rs]))
 
 (defroutes app-routes
   (GET "/" [] (resource-response "index.html"))
-  (GET "/teams" [] (rs/teams-summary))
   (GET "/results" [] (rs/results))
-  (POST "/teams/create" {params :params} (rs/create-team params))
-  (POST "/teams/update" {params :params} (rs/update-team params))
-  (POST "/teams/delete" {params :params} (rs/delete-team params)))
+  (context "/teams" [] (defroutes team-routes
+    (GET "/" [] (rs/teams-summary))
+    (POST "/create" {params :params} (rs/create-team params))
+    (POST "/update" {params :params} (rs/update-team params))
+    (POST "/delete" {params :params} (rs/delete-team params)))))
 
 (def app
   (-> (handler/api app-routes)
       (middleware/wrap-json-body)
-      (middleware/wrap-json-response)))
+      (middleware/wrap-json-response)
+      (cors/wrap-cors #"^http://localhost:3000/teams$")))
 
 (defn -main [& args]
   (run-jetty #'app {:port 3000}))
