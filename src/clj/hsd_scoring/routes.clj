@@ -1,8 +1,10 @@
 (ns hsd-scoring.routes
+  "Functions to translate REST calls to database operations"
   (:use korma.db
         korma.core)
   (:require [ring.util.response :refer [response]]))
 
+;; Database connection details
 (defdb mys (mysql
                   {:host "localhost"
                    :port 3306
@@ -11,7 +13,7 @@
                    :user "root"
                    :password "#yperrea1ity"}))
 
-;;; Table definitions
+;; Table definitions
 (defentity team_scores)
 
 (defn exists? [table col value]
@@ -26,7 +28,7 @@
 
 ;; not my proudest moment
 (defn results []
-  {:body (exec-raw ["SELECT *, launch_score + ramp_score AS total FROM team_scores WHERE disqualified = 1 ORDER BY total DESC, weight ASC"] :results)}) 
+  {:body (exec-raw ["SELECT *, launch_score + ramp_score AS total FROM team_scores WHERE disqualified = 0 ORDER BY total DESC, weight ASC"] :results)}) 
 
 (defn create-team [params]
   (let [team-name (:team_name params)]
