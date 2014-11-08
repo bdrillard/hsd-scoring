@@ -25,7 +25,7 @@
   :main hsd-scoring.handler
   :ring {:handler hsd-scoring.handler/app}
   :cljsbuild {:builds [{:source-paths ["src/cljs"]
-                       :compiler {:output-to "resources/js/forms.js"
+                       :compiler {:output-to "resources/public/js/forms.js"
                                   :optimizations :advanced
                                   :pretty-print false}}]}
   :profiles {:dev {:env {:db-url "localhost"

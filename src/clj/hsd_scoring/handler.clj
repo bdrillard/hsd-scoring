@@ -14,7 +14,7 @@
 
 ;; HTTP routes
 (defroutes app-routes
-  (GET "/" [] (response (rs/wrap-json-url "index.html")))
+  (GET "/" [] (response (rs/wrap-json-url "public/index.html")))
   (GET "/results" [] (rs/results))
   (context "/teams" [] (defroutes team-routes ; routes concerning team update operations
     (GET "/" [] (rs/teams-summary))
