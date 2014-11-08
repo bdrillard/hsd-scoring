@@ -15,7 +15,7 @@
 ;; HTTP routes
 (defroutes app-routes
   (GET "/" [] (response (rs/wrap-json-url "public/index.html")))
-  (GET "/results" [] (rs/results))
+  (GET "/results" [] (rs/results-summary))
   (context "/teams" [] (defroutes team-routes ; routes concerning team update operations
     (GET "/" [] (rs/teams-summary))
     (POST "/create" {params :params} (rs/create-team params))

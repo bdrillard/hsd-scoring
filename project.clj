@@ -11,6 +11,7 @@
                  [jumblerg/ring.middleware.cors "1.0.1"]
                  [compojure "1.1.8"]
                  [korma "0.3.2"]
+                 [yesql "0.4.0"]
                  [org.clojure/java.jdbc "0.3.3"]
                  [mysql/mysql-connector-java "5.1.6"]
                  [formative "0.8.8"]
@@ -30,5 +31,6 @@
                                   :pretty-print false}}]}
   :profiles {:dev {:env {:db-url "localhost"
                          :db-port 3306
+                         :db-name "hsd_scoring"
                          :db-user "root"
                          :db-pass "password"}}})
