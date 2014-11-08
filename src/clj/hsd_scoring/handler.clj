@@ -2,10 +2,11 @@
   "Server routes handler"
   (:gen-class)
   (:use compojure.core
-        ring.adapter.jetty)
+        ring.adapter.jetty
+        environ.core)
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
-            [ring.util.response :refer [resource-response]]
+            [ring.util.response :refer [response]]
             [ring.middleware.params :as wrap-params]
             [ring.middleware.json :as middleware]
             [ring.middleware.cors :as cors]
@@ -13,7 +14,7 @@
 
 ;; HTTP routes
 (defroutes app-routes
-  (GET "/" [] (resource-response "index.html"))
+  (GET "/" [] (response (rs/wrap-json-url "index.html")))
   (GET "/results" [] (rs/results))
   (context "/teams" [] (defroutes team-routes ; routes concerning team update operations
     (GET "/" [] (rs/teams-summary))
@@ -25,7 +26,9 @@
   (-> (handler/api app-routes)
       (middleware/wrap-json-body)
       (middleware/wrap-json-response)
-      (cors/wrap-cors #"^http://localhost:3000/teams$"))) ; allow JSON summary to be read
+      (cors/wrap-cors (re-pattern (str "^http://" 
+                                       (env :db-url) ":" (env :db-port) 
+                                       "/team$"))))) ; allow JSON team summary to be read
 
 (defn -main [& args]
   (run-jetty #'app {:port 3000}))

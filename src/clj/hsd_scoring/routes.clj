@@ -1,17 +1,33 @@
 (ns hsd-scoring.routes
   "Functions to translate REST calls to database operations"
   (:use korma.db
-        korma.core)
-  (:require [ring.util.response :refer [response]]))
+        korma.core
+        environ.core)
+  (:require [ring.util.response :refer [response]]
+            [net.cgrand.enlive-html :refer [html-resource at set-attr emit*]]))
+
+(defn render [t]
+  (apply str t))
+
+(def render-nodes
+  (comp render emit*))
+
+(defn wrap-json-url [response]
+  (let [main (html-resource response)]
+    (render-nodes (at main
+        [:table#summary] (set-attr :data-url
+                                   (str "http://"
+                                        (env :db-url)
+                                        ":3000/teams"))))))
 
 ;; Database connection details
 (defdb mys (mysql
-                  {:host "localhost"
-                   :port 3306
+                  {:host (env :db-url)
+                   :port (env :db-port)
                    :db "hsd_scoring"
                    :make-pool? true
-                   :user "root"
-                   :password "#yperrea1ity"}))
+                   :user (env :db-user)
+                   :password (env :db-pass)}))
 
 ;; Table definitions
 (defentity team_scores)

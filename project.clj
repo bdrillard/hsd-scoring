@@ -15,13 +15,20 @@
                  [mysql/mysql-connector-java "5.1.6"]
                  [formative "0.8.8"]
                  [prismatic/dommy "0.1.1"]
-                 [cljs-ajax "0.1.5"]]
+                 [cljs-ajax "0.1.5"]
+                 [enlive "1.1.5"]
+                 [environ "1.0.0"]]
   :plugins [[lein-ring "0.8.11"]
-            [lein-cljsbuild "1.0.0"]]
+            [lein-cljsbuild "1.0.0"]
+            [lein-environ "1.0.0"]]
   :source-paths ["src/clj"]
   :main hsd-scoring.handler
   :ring {:handler hsd-scoring.handler/app}
   :cljsbuild {:builds [{:source-paths ["src/cljs"]
                        :compiler {:output-to "resources/js/forms.js"
                                   :optimizations :advanced
-                                  :pretty-print false}}]})
+                                  :pretty-print false}}]}
+  :profiles {:dev {:env {:db-url "localhost"
+                         :db-port 3306
+                         :db-user "root"
+                         :db-pass "password"}}})
