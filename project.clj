@@ -10,7 +10,6 @@
                  [ring/ring-json "0.3.1"]
                  [jumblerg/ring.middleware.cors "1.0.1"]
                  [compojure "1.1.8"]
-                 [korma "0.3.2"]
                  [yesql "0.4.0"]
                  [org.clojure/java.jdbc "0.3.3"]
                  [mysql/mysql-connector-java "5.1.6"]
