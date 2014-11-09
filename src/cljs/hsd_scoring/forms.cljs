@@ -1,5 +1,5 @@
-;;;; Forms for the HSD 2014 Scoring System. 
 (ns hsd-scoring.forms
+  "Forms, rendering, and AJAX functions"
   (:require [formative.core :refer [render-form]]
             [formative.dom :refer [handle-submit]]
             [dommy.core :refer [append!]]
@@ -30,56 +30,57 @@
 ;; of a form name, its definition, and a function that makes a REST call to the
 ;; database for that particular form.
 (def forms-list [{:form-name "create-team"
-                  :form-definition {:fields [{:name :team_name}]
-                                    :validations [[:required [:team_name]]
-                                                  [:matches #"[\w+|_?]*-\d+" :team_name "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
+                  :form-definition {:fields [{:name :team-name}]
+                                    :validations [[:required [:team-name]]
+                                                  [:matches #"[\w+|_?]*-\d+" :team-name "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
                                     :renderer :bootstrap3-stacked}
                   :form-func (fn [submission]
                                (POST "http://localhost:3000/teams/create"
-                                          {:params {:team_name (:team_name submission)}
+                                          {:params {:team-name (:team-name submission)}
                                            :format :json
                                            :handler handler
                                            :error-handler error
                                            :keywordize-keys true}))}
                  {:form-name "update-weight"
-                  :form-definition {:fields [{:name :team_name}
+                  :form-definition {:fields [{:name :team-name}
                                              {:name :weight 
                                               :datatype :float}]
-                                    :validations [[:required [:team_name :weight]]]
+                                    :validations [[:required [:team-name :weight]]]
                                     :renderer :bootstrap3-stacked}
                   :form-func (fn [submission]
                                (POST "http://localhost:3000/teams/update"
-                                          {:params {:team_name (:team_name submission)
-                                                    :weight (:weight submission)}
+                                          {:params {:team-name (:team-name submission)
+                                                    :field "Weight"
+                                                    :value (:weight submission)}
                                            :format :json
                                            :handler handler
                                            :error-handler error
                                            :keywordize-keys true}))}
                  {:form-name "update-score"
-                  :form-definition {:fields [{:name :team_name}
+                  :form-definition {:fields [{:name :team-name}
                                              {:name :competition 
                                               :type :select 
                                               :options ["Launch" "Ramp" "Presentation"]}
                                              {:name :score :datatype :int}]
-                                    :validations [[:required [:team_name :competition :score]]
+                                    :validations [[:required [:team-name :competition :score]]
                                                   [:within 0 200 :score]]
                                     :renderer :bootstrap3-stacked}
                   :form-func (fn [submission]
                                (POST "http://localhost:3000/teams/update"
-                                          {:params {:team_name (:team_name submission)
-                                                    :competition (:competition submission)
-                                                    :score (:score submission)}
+                                          {:params {:team-name (:team-name submission)
+                                                    :field (:competition submission)
+                                                    :value (:score submission)}
                                            :format :json
                                            :handler handler
                                            :error-handler error
                                            :keywordize-keys true}))}
                  {:form-name "delete-team"
-                  :form-definition {:fields [{:name :team_name}]
-                                    :validations [[:required [:team_name]]]
+                  :form-definition {:fields [{:name :team-name}]
+                                    :validations [[:required [:team-name]]]
                                     :renderer :bootstrap3-stacked}
                   :form-func (fn [submission]
                                (POST "http://localhost:3000/teams/delete"
-                                          {:params {:team_name (:team_name submission)}
+                                          {:params {:team-name (:team-name submission)}
                                            :format :json
                                            :handler handler
                                            :error-handler error 
