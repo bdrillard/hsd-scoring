@@ -41,7 +41,7 @@
 (defn results-summary []
   {:body (select-results db)}) 
 
-(defn create-team [{:keys [team-name]} params]
+(defn create-team [{:keys [team-name]}]
   (let [rows-aff (create-team! db team-name)]
     (if (= 1 rows-aff)
       (response {:status 200
@@ -56,7 +56,7 @@
     (= field "Ramp") (update-team-ramp! db value team-name)
     (= field "Presentation") (update-team-presentation! db value team-name)))
 
-(defn update-team [{:keys [team-name field value]} params]
+(defn update-team [{:keys [team-name field value]}]
   (let [rows-aff (update-by-field team-name field value)]
     (if (= 1 rows-aff)
       (response {:status 200
@@ -64,7 +64,7 @@
       (response {:status 403
                  :body {:error (str "The team named '" team-name "' did not exist")}}))))
 
-(defn delete-team [{:keys [team-name]} params]
+(defn delete-team [{:keys [team-name]}]
   (let [rows-aff (delete-team! db team-name)]
     (if (= 1 rows-aff)
       (response {:status 200
