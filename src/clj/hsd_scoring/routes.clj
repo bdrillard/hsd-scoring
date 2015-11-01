@@ -31,10 +31,10 @@
 (defquery select-results "sql/select-results.sql")
 (defquery select-summary "sql/select-summary.sql")
 (defquery create-team! "sql/insert-team.sql")
-(defquery update-team-weight! "sql/update-team-weight.sql")
-(defquery update-team-launch! "sql/update-team-launch-score.sql")
-(defquery update-team-ramp! "sql/update-team-ramp-score.sql")
-(defquery update-team-presentation! "sql/update-team-pres-score.sql")
+(defquery update-team-school! "sql/update-team-school.sql")
+(defquery update-team-egg-drop! "sql/update-team-egg-drop.sql")
+(defquery update-team-crack-safe! "sql/update-team-crack-safe.sql")
+(defquery update-team-break-out! "sql/update-team-break-out.sql")
 (defquery delete-team! "sql/delete-team.sql")
 
 (defn teams-summary
@@ -43,7 +43,7 @@
   {:body (select-summary db)})
 
 (defn results-summary 
-  "Collects score results, sum the launch and ramp scores, tie break by weight"
+  "Collects score results, sum the individual scores"
   []
   {:body (select-results db)}) 
 
@@ -61,13 +61,13 @@
   "Helper function to update correct field of team"
   [team-name field value]
   (cond
-    (= field "Weight") (update-team-weight! db value team-name)
-    (= field "Launch") (update-team-launch! db value team-name)
-    (= field "Ramp") (update-team-ramp! db value team-name)
-    (= field "Presentation") (update-team-presentation! db value team-name)))
+    (= field "School") (update-team-school! db value team-name)
+    (= field "Egg Drop") (update-team-egg-drop! db value team-name)
+    (= field "Crack the Safe") (update-team-crack-safe! db value team-name)
+    (= field "Break Out") (update-team-break-out! db value team-name)))
 
 (defn update-team 
-  "Updates team field, weight or score, to new value provided the team exists"
+  "Updates team field, school name or score, to new value provided the team exists"
   [{:keys [team-name field value]}]
   (let [rows-aff (update-by-field team-name field value)]
     (if (= 1 rows-aff)
