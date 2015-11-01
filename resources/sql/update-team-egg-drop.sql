@@ -1,3 +1,3 @@
 UPDATE IGNORE team_scores
-SET launch_score = :value
+SET egg_drop_score = :value
 WHERE team_name = :name

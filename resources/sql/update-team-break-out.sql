@@ -1,3 +1,3 @@
 UPDATE IGNORE team_scores
-SET presentation_score = :value
+SET break_out_score = :value
 WHERE team_name = :name

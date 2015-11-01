@@ -1,3 +1,3 @@
 UPDATE IGNORE team_scores
-SET weight = :value
+SET school_name = :value
 WHERE team_name = :name

@@ -1,3 +1,3 @@
 UPDATE IGNORE team_scores
-SET ramp_score = :value
+SET crack_safe_score = :value
 WHERE team_name = :name

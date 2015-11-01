@@ -1,4 +1,4 @@
-SELECT team_name, launch_score + ramp_score AS score, weight
+SELECT team_name, egg_drop_score + crack_safe_score + break_out_score AS score, school_name
 FROM team_scores
 WHERE disqualified = 0
-ORDER BY score DESC, weight ASC
+ORDER BY score DESC
