@@ -32,7 +32,7 @@
 (def forms-list [{:form-name "create-team"
                   :form-definition {:fields [{:name :team-name}]
                                     :validations [[:required [:team-name]]
-                                                  [:matches #"[\w+|_?]*-\d+" :team-name "Team name must be one or more words separated by underscores trailed by a hyphen separated number"]]
+                                                  [:matches #"[\w+|_?]*_\d+" :team-name "Team name must be one or more words separated by underscores trailed by an underscore separated number"]]
                                     :renderer :bootstrap3-stacked}
                   :form-func (fn [submission]
                                (POST "http://localhost:3000/teams/create"
@@ -41,17 +41,16 @@
                                            :handler handler
                                            :error-handler error
                                            :keywordize-keys true}))}
-                 {:form-name "update-weight"
+                 {:form-name "update-school"
                   :form-definition {:fields [{:name :team-name}
-                                             {:name :weight 
-                                              :datatype :float}]
-                                    :validations [[:required [:team-name :weight]]]
+                                             {:name :school-name}]
+                                    :validations [[:required [:team-name :school-name]]]
                                     :renderer :bootstrap3-stacked}
                   :form-func (fn [submission]
                                (POST "http://localhost:3000/teams/update"
                                           {:params {:team-name (:team-name submission)
-                                                    :field "Weight"
-                                                    :value (:weight submission)}
+                                                    :field "School"
+                                                    :value (:school-name submission)}
                                            :format :json
                                            :handler handler
                                            :error-handler error
@@ -60,7 +59,7 @@
                   :form-definition {:fields [{:name :team-name}
                                              {:name :competition 
                                               :type :select 
-                                              :options ["Launch" "Ramp" "Presentation"]}
+                                              :options ["Egg Drop" "Crack the Safe" "Break Out"]}
                                              {:name :score :datatype :int}]
                                     :validations [[:required [:team-name :competition :score]]
                                                   [:within 0 200 :score]]
